@@ -8,6 +8,7 @@ var path = require('path'),
     methodOverride = require('method-override'),
     errorHandler = require('errorhandler');
     moment = require('moment'),
+	multer = require('multer');
 
 module.exports = function(app) {
     app.engine('handlebars', exphbs.create({
@@ -35,6 +36,10 @@ module.exports = function(app) {
     if ('development' === app.get('env')) {
        app.use(errorHandler());
     }
+
+	app.use(multer({
+		dest: path.join(__dirname, 'public/upload/temp')
+	}).any());
 
     return app;
 };
