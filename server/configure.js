@@ -29,17 +29,21 @@ module.exports = function(app) {
 	app.use(bodyParser.json());
 	app.use(methodOverride());
     app.use(cookieParser('some-secret-value-here'));
-    routes(app);
     
     app.use('/public/', express.static(path.join(__dirname, '../public')));
+
 
     if ('development' === app.get('env')) {
        app.use(errorHandler());
     }
 
+
 	app.use(multer({
 		dest: path.join(__dirname, 'public/upload/temp')
 	}).any());
+	//}).array);
+
+    routes(app);
 
     return app;
 };
